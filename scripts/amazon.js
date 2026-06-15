@@ -66,7 +66,13 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
-document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity();
+
+
+if (cartQuantity === 0) {
+  document.querySelector(".js-cart-quantity").innerHTML = '';
+} else {
+  document.querySelector(".js-cart-quantity").innerHTML = updateCartQuantity();
+}
 
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
