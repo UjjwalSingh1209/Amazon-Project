@@ -1,11 +1,11 @@
-import { cart, addToCart} from '../data/cart.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from "./utils/money.js";
 let productsHTML = '';
 
 products.forEach((product) => {
 
-    productsHTML += `
+  productsHTML += `
     <div class="product-container">
 
       <div class="product-image-container">
@@ -30,8 +30,8 @@ products.forEach((product) => {
         $${formatCurrency(product.priceCents)}
       </div>
 
-      <div class="product-quantity-container">
-        <select>
+      <div class="product-quantity-container}">
+        <select class="js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -63,34 +63,31 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 
-function updateCartQuantity () {
+function updateCartQuantity() {
   let cartQuantity = 0;
 
-    cart.forEach((cartItem) => {
-        cartQuantity += cartItem.quantity;
-    });
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
 
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 }
 document.querySelectorAll('.js-add-to-cart')
-    .forEach((button) => {
+  .forEach((button) => {
 
-        button.addEventListener('click', () => {
+    button.addEventListener('click', () => {
+      const productId = button.dataset.productId;
 
-            const productId = button.dataset.productId;
-            addToCart(productId);
-            updateCartQuantity();
-            
-            
+      const productContainer = button.closest('.product-container');
 
+      const quantity = Number(
+        productContainer.querySelector(`.js-quantity-selector-${productId}`).value
+      );
 
-            console.log(cart);
+      addToCart(productId, quantity);
+      updateCartQuantity();
 
-
-
-
-
-
-        });
-
+      console.log(cart);
     });
+
+  });
