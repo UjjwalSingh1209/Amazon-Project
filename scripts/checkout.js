@@ -1,22 +1,18 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-import { updateCartQuantity } from "./utils/updateCartQuantity.js";
-
-
-
-
+import { calculateCartQuantity } from "../data/cart.js";
 
 let cartSummaryHTML = '';
 cart.forEach((cartItem) => {
-    let productId = cartItem.productId;
-    let matchingProduct;
-    
-    products.forEach((product) => {
-        if (productId === product.id) matchingProduct = product;
-    });
+  let productId = cartItem.productId;
+  let matchingProduct;
 
-    cartSummaryHTML += `
+  products.forEach((product) => {
+    if (productId === product.id) matchingProduct = product;
+  });
+
+  cartSummaryHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
@@ -94,7 +90,7 @@ cart.forEach((cartItem) => {
           </div>
     `;
 });
-document.querySelector('.js-return-to-home-link').innerHTML = `${updateCartQuantity()} items`;
+document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 document.querySelectorAll('.js-delete-quantity-link')
   .forEach((link) => {
@@ -103,6 +99,7 @@ document.querySelectorAll('.js-delete-quantity-link')
       removeFromCart(productId);
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
       container.remove();
+      document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
     });
 
   });
