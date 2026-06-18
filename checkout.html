@@ -18,22 +18,37 @@
   <link rel="stylesheet" href="styles/shared/general.css">
   <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
   <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+
+  <!-- Directly copied from https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_alerts&stacked=h
+   for alert message updateQuantity(productId, newQuantity) in cart.js -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+
   <div class="checkout-header">
     <div class="header-content">
-      <div class="checkout-header-middle-section">
-        Checkout (
-        <a class="return-to-home-link js-return-to-home-link" href="amazon.html"></a>
-        )
+
+      <div class="checkout-header-left-section">
+        <a href="amazon.html">
+          <img class="amazon-logo" src="images/amazon-logo.png">
+          <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+        </a>
       </div>
 
-      
+      <div class="checkout-header-middle-section">
+        Checkout (
+        <a class="return-to-home-link js-return-to-home-link"
+           href="amazon.html"></a>
+        )
+      </div>
 
       <div class="checkout-header-right-section">
         <img src="images/icons/checkout-lock-icon.png">
       </div>
+
     </div>
   </div>
 

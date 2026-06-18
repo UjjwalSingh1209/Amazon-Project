@@ -20,7 +20,7 @@ export function calculateCartQuantity() {
   return cartQuantity;
 }
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
@@ -55,4 +55,36 @@ export function removeFromCart(productId) {
 
   cart = newCart;
   saveToStorage();
+}
+
+export function updateQuantity(productId, newQuantity) {
+  for (const cartItem of cart) {
+    if (cartItem.productId === productId) {
+
+      if (newQuantity > 0 && newQuantity < 1000) {
+        cartItem.quantity = newQuantity;
+        saveToStorage();
+
+        return {
+          success: true
+        };
+      }
+
+      if (newQuantity <= 0) {
+        return {
+          success: false,
+          message: "Quantity must be at least 1."
+        };
+      }
+
+      return {
+        success: false,
+        message: "Quantity must be less than 1000."
+      };
+    }
+  }
+  return {
+  success: false,
+  message: "Product not found."
+};
 }
