@@ -4,11 +4,13 @@ import { formatCurrency } from "../utils/money.js";
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOption.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import {renderCheckoutHeader} from "./checkoutHeader.js";
 
 
 
 
 export function renderOrderSummary() {
+    // renderCheckoutHeader();
   let cartSummaryHTML = '';
   cart.forEach((cartItem) => {
     let productId = cartItem.productId;
@@ -120,7 +122,7 @@ export function renderOrderSummary() {
   }
 
 
-  document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
+//   document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
   document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
   document.querySelectorAll('.js-delete-quantity-link')
     .forEach((link) => {
@@ -130,8 +132,9 @@ export function renderOrderSummary() {
         // const container = document.querySelector(`.js-cart-item-container-${productId}`);
         // container.remove();
         renderOrderSummary();
-        document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
+        // document.querySelector('.js-return-to-home-link').innerHTML = `${calculateCartQuantity()} items`;
         renderPaymentSummary();
+        renderCheckoutHeader();
       });
 
     });
@@ -164,6 +167,8 @@ export function renderOrderSummary() {
 
         if (event.key === 'Enter') {
           saveLink(input.dataset.productId);
+          renderPaymentSummary();
+          renderCheckoutHeader();
         }
 
       });
@@ -177,6 +182,7 @@ export function renderOrderSummary() {
       link.addEventListener('click', () => {
         saveLink(link.dataset.productId);
         renderPaymentSummary();
+        renderCheckoutHeader();
       });
 
     });
@@ -213,8 +219,8 @@ export function renderOrderSummary() {
       }, 2000);
     }
 
-    document.querySelector('.js-return-to-home-link').innerHTML =
-      `${calculateCartQuantity()} items`;
+    // document.querySelector('.js-return-to-home-link').innerHTML =
+    //   `${calculateCartQuantity()} items`;
   }
   document.querySelectorAll('.js-delivery-option')
     .forEach((element) => {
