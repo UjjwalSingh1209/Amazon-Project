@@ -37,7 +37,7 @@ export function renderOrderSummary() {
                   ${matchingProduct.name}
                 </div>
                 <div class="product-price">
-                  $${formatCurrency(matchingProduct.priceCents)}
+                  ₹${formatCurrency(matchingProduct.pricePaisa)}
                 </div>
                 <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                   <span>
@@ -76,9 +76,9 @@ export function renderOrderSummary() {
     deliveryOptions.forEach((deliveryOption) => {
       
       const dateString = calculateDeliveryDate(deliveryOption);
-      const priceString = deliveryOption.priceCents === 0
+      const priceString = deliveryOption.pricePaisa === 0
         ? 'FREE'
-        : `${formatCurrency(deliveryOption.priceCents)}`
+        : `${formatCurrency(deliveryOption.pricePaisa)}`
 
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
@@ -94,7 +94,7 @@ export function renderOrderSummary() {
             ${dateString}
           </div>
           <div class="delivery-option-price">
-            $${priceString} - Shipping
+            ₹${priceString} - Shipping
           </div>
         </div>
       </div>
