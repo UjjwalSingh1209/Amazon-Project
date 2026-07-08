@@ -1,7 +1,6 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { formatCurrency } from "./utils/money.js";
-import { calculateCartQuantity } from "../data/cart.js";
+import { calculateCartQuantity } from '../data/cart.js';
 
 let productsHTML = '';
 
@@ -21,7 +20,7 @@ products.forEach((product) => {
 
       <div class="product-rating-container">
         <img class="product-rating-stars"
-          src="images/ratings/rating-${product.rating.stars * 10}.png">
+          src="${product.getStarsUrl()}">
 
         <div class="product-rating-count link-primary">
           ${product.rating.count}
@@ -29,7 +28,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-price">
-        ₹${formatCurrency(product.pricePaisa)}
+        ${product.getPrice()}
       </div>
 
       <div class="product-quantity-container">
@@ -47,6 +46,8 @@ products.forEach((product) => {
         </select>
       </div>
 
+      ${product.extraInfoHTML()}
+
       <div class="product-spacer"></div>
 
       <div class="added-to-cart">
@@ -54,7 +55,9 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary js-add-to-cart"  data-product-id="${product.id}">
+      <button
+        class="add-to-cart-button button-primary js-add-to-cart"
+        data-product-id="${product.id}">
         Add to Cart
       </button>
 
@@ -62,16 +65,13 @@ products.forEach((product) => {
   `;
 });
 
-
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-
-
-
 if (calculateCartQuantity() === 0) {
-  document.querySelector(".js-cart-quantity").innerHTML = '';
+  document.querySelector('.js-cart-quantity').innerHTML = '';
 } else {
-  document.querySelector(".js-cart-quantity").innerHTML = calculateCartQuantity();
+  document.querySelector('.js-cart-quantity').innerHTML =
+    calculateCartQuantity();
 }
 
 document.querySelectorAll('.js-add-to-cart')
@@ -83,13 +83,15 @@ document.querySelectorAll('.js-add-to-cart')
       const productContainer = button.closest('.product-container');
 
       const quantity = Number(
-        productContainer.querySelector(`.js-quantity-selector-${productId}`).value
+        productContainer.querySelector(
+          `.js-quantity-selector-${productId}`
+        ).value
       );
 
       addToCart(productId, quantity);
 
-      document.querySelector(".js-cart-quantity").innerHTML =
-      calculateCartQuantity();
+      document.querySelector('.js-cart-quantity').innerHTML =
+        calculateCartQuantity();
 
       console.log(cart);
     });
