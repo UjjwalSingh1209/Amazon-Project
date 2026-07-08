@@ -12,7 +12,7 @@ export function getProduct(productId) {
   return matchingProduct;
 }
 
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -40,7 +40,7 @@ class Product {
   }
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
 
   constructor(productDetails) {
@@ -57,7 +57,7 @@ class Clothing extends Product {
   }
 }
 
-class Appliances extends Product {
+export class Appliance extends Product {
   instructionsLink;
   warrantyLink;
 
@@ -757,7 +757,7 @@ export const products = [
     return new Clothing(productDetails);
   }
   else if (productDetails.type === 'appliances') {
-    return new Appliances(productDetails);
+    return new Appliance(productDetails);
   }
   return new Product(productDetails);
 });
